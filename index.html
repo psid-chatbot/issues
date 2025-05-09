@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find Worker for Your Issue</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .company-name {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #7f8c8d;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    .result {
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    .contact-link {
+      margin-top: 15px;
+      display: inline-block;
+      background-color: #25D366;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .contact-link:hover {
+      background-color: #1ebe5b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="company-name">PSID Technologies Pvt Ltd</div>
+    <div class="tagline">Building Your Future Today</div>
+    <h2>Report an Issue</h2>
+    <input type="text" id="issueInput" placeholder="Type your issue (e.g. plumbing)" />
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const workers = {
+      plumbing: { name: "Ramesh", phone: "919876543210" },
+      electricity: { name: "Suresh", phone: "919123456780" },
+      carpenter: { name: "Ajay", phone: "919988776655" },
+      maintenance: { name: "Naresh", phone: "919111223344" },
+      deepcleaning: { name: "Vinay", phone: "919363801972" }
+    };
+
+    const input = document.getElementById("issueInput");
+    const result = document.getElementById("result");
+
+    input.addEventListener("input", () => {
+      const issue = input.value.toLowerCase().trim();
+      const match = Object.keys(workers).find(key => issue.includes(key));
+      
+      if (match) {
+        const worker = workers[match];
+        result.innerHTML = `
+          <strong>${match.charAt(0).toUpperCase() + match.slice(1)}:</strong> ${worker.name} – ${worker.phone}<br>
+          <a class="contact-link" href="https://wa.me/${worker.phone}?text=Hello%20${worker.name}%2C%20I%20have%20a%20${match}%20issue.%20Please%20help." target="_blank">
+            💬 WhatsApp ${worker.name}
+          </a>
+        `;
+      } else {
+        result.innerHTML = `<em>No matching worker found for that issue.</em>`;
+      }
+    });
+  </script>
+</body>
+</html>
